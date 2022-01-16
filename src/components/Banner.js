@@ -7,7 +7,7 @@ const useStyles = makeStyles(()=>({
         backgroundImage : "url(./banner2.jpg)"
     },
     bannercontent :{
-        height :400,
+        height :450,
         display:"flex",
         flexDirection : "column",
         padding :25,
@@ -18,8 +18,14 @@ const useStyles = makeStyles(()=>({
         height:"40%",
         flexDirection:"column",
         justifyContent:"center",
-        textAlign:"center"
-    }
+        textAlign:"center",
+        marginBottom:"15px",
+    },
+    carousel: {
+        height: "30%",
+        display: "flex",
+        alignItems: "center",
+      },
 }))
 
 const Banner = () => {
@@ -35,7 +41,7 @@ const Banner = () => {
                         marginBottom:15,
                         fontFamily:"Montserrat"
                     }} >
-                        Crypto Hunter
+                        Crypto Quest
                     </Typography>
                     <Typography
                     variant='subtitle2'
@@ -45,10 +51,12 @@ const Banner = () => {
                         fontFamily:"Montserrat"
                     }}
                     >
-                        Get all the Info regarding your favorite crypto currency.
+                    Get all the Info regarding your favorite crypto currency.
                     </Typography>
 
                 </div>
+                
+                
                 <Carousel />
 
             </Container>

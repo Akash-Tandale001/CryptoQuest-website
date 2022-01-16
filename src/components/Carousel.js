@@ -8,19 +8,20 @@ import { Link } from 'react-router-dom';
 
 
 const useStyles = makeStyles(()=>({
-    carausel:{
-        height:"50%",
-        display:"flex",
-        alignItems:'center'
-    },
-    carouselItem:{
-        display:"flex",
-        flexDirection:"column",
-        alignItems:"center",
-        cursor:"pointer",
-        textTransform:"uppercase",
-        color:"white"
-    }
+    carousel: {
+        marginTop:"15px",
+        height: "40%",
+        display: "flex",
+        alignItems: "center",
+      },
+      carouselItem: {
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        cursor: "pointer",
+        textTransform: "uppercase",
+        color: "white",
+      },
 }))
 
 export function numberWithCommas(x){
@@ -47,16 +48,18 @@ const Carousel = () => {
  
         return (
             <Link className={classes.carouselItem} to={`/coins/${coin.id}`}>
+            
             <img 
             src={coin?.image}
             alt={coin.name}
-            heigth='80'
+            height='150'
             style={{marginBottom:10}} />
             <span>{coin?.symbol}&nbsp;
             <span style={{
                 color:profit >0 ?"rgb(14,203,129)" : "red",
                 fontWeight:500
             }} >{profit && "+"}{coin?.price_change_percentage_24h?.toFixed(2)}%</span></span>
+        
             <span
             style={{
                 fontSize:22,

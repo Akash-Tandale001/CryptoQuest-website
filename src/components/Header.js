@@ -35,13 +35,13 @@ const Header = () => {
     return (
         <ThemeProvider theme={darkTheme}>
        <AppBar color='transparent' position='static'>
-           <Container>
+           <Container maxWidth="lg">
                <Toolbar>
                    <Typography
                     onClick={()=>history("/", { replace: true })}
                      className={classes.title}
                      variant='h6'>
-                       Crypto Hunter
+                       CryptoQuest
                    </Typography>
                    <Select variant='outlined' style={{
                        width:100,
@@ -51,8 +51,11 @@ const Header = () => {
                    value={currency}
                    onChange={(e) => setCurrency(e.target.value)}
                    >
-                       <MenuItem value={"USD"}>USD</MenuItem>
                        <MenuItem value={"INR"}>INR</MenuItem>
+                       <MenuItem value={"USD"}>USD</MenuItem>
+                       <MenuItem value={"EUR"}>EUR</MenuItem>
+                       <MenuItem value={"GBP"}>GBP</MenuItem>
+                       <MenuItem value={"JPY"}>JPY</MenuItem>
                    </Select>
                </Toolbar>
            </Container>

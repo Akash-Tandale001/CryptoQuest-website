@@ -9,5 +9,6 @@
 
 a{
   text-decoration: none;
-  color: gold;
+  color: rgb(241, 206, 7);
+  /* color: rgba(39, 39, 38, 0.555); */
 }

@@ -1,8 +1,9 @@
 import { type } from "@testing-library/user-event/dist/type";
 import axios from "axios";
 import { React, useEffect, useState } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Navigate, useNavigate,Link } from "react-router-dom";
 import { CoinList } from "../config/api";
+
 import { CryptoState } from "../CryptoContext";
 import {
   Button,
@@ -115,6 +116,7 @@ const CoinsCard = () => {
               const profit = card.price_change_percentage_24h > 0;
 
               return (
+                <Link to={`/coins/${card.id}`}>
                 <Card className={classes.cardstyle}>
                 <CardActionArea className={classes.cardArea} >
                   <div style={{
@@ -161,14 +163,12 @@ const CoinsCard = () => {
                     </Typography>
                   </CardContent>
 
-                  <Button size="small" color="primary">
-                    Share
-                  </Button>
-                  <Button size="small" color="primary">
-                    Learn More
+                 <Button size="small" color="primary">
+                    Track Tread
                   </Button>
                 </CardActionArea>
         </Card>
+        </Link>
               );
             })}
         <Pagination

@@ -23,9 +23,9 @@ const CoinPage = () => {
  
   const useStyles = makeStyles((theme) => ({
     container: {
-      display: "flex",
-      [theme.breakpoints.down("md")]: {
-        flexDirection: "colum",
+      display: "flex",     
+      [theme.breakpoints.down("sm")]: {
+        flexDirection: "column",
         alignItems: "center",
       },
     },
@@ -118,7 +118,9 @@ const CoinPage = () => {
           </span> */}
         </div>
       </div>
+      <div style={{width:"80%"}}>
       <CoinInfo coin={coin} />
+      </div>
     </div>
   );
 };

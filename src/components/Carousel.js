@@ -37,9 +37,10 @@ const Carousel = () => {
         const {data} = await axios.get(TrendingCoins(currency))
         setTrending(data);
     }
-
+    console.log(trending);
     useEffect(() => {
        fetchTrendingCoins();    
+       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currency]);
     
 

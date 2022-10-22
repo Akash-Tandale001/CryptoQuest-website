@@ -1,7 +1,7 @@
 import { type } from "@testing-library/user-event/dist/type";
 import axios from "axios";
 import { React, useEffect, useState } from "react";
-import { Navigate, useNavigate,Link } from "react-router-dom";
+import { Navigate, useNavigate, Link } from "react-router-dom";
 import { CoinList } from "../config/api";
 
 import { CryptoState } from "../CryptoContext";
@@ -20,7 +20,7 @@ import {
 } from "@material-ui/core";
 import { numberWithCommas } from "./Carousel";
 import { Pagination } from "@material-ui/lab";
-import { findByLabelText } from "@testing-library/react";
+// import { findByLabelText } from "@testing-library/react";
 
 const CoinsCard = () => {
   const [coins, setCoins] = useState([]);
@@ -30,7 +30,7 @@ const CoinsCard = () => {
   const { currency, symbol } = CryptoState();
   const Navigate = useNavigate();
 
-  const useStyles = makeStyles(() => ({
+  const useStyles = makeStyles((theme) => ({
     card: {
       backgroundColor: "#16171a",
       cursor: "pointer",
@@ -46,19 +46,55 @@ const CoinsCard = () => {
     },
     cardstyle: {
       display: "flex",
-      flexDirection:"row",
-      justifyContent:"center",
-      float:"left",
+      flexDirection: "row",
+      justifyContent: "center",
+      float: "left",
       backgroundColor: "rgba(39, 39, 38, 0.555)",
-      width:"30%",
-      height:"40%",
-      margin:"15px",
-      padding:"9px",
+      width: "100%",
+      height: "100%",
+      marginTop: "1em",
+      padding: "2em",
     },
-    cardArea:{
-        fontFamily: "Montserrat",
-        fontWeight:"bold",
-        fontSize:"22px",
+    cardContainer: {
+      display: "grid",
+      gridTemplateColumns: "1fr 1fr 1fr",
+      gap: "2em",
+      [theme.breakpoints.down("md")]: {
+        gridTemplateColumns: "1fr 1fr 1fr",
+      },
+      [theme.breakpoints.down("sm")]: {
+        gridTemplateColumns: "1fr 1fr",
+      },
+      [theme.breakpoints.down("xs")]: {
+        gridTemplateColumns: "1fr",
+      },
+    },
+    img:{
+      width:"60%",
+      [theme.breakpoints.down("md")]: {
+        width:"50%"
+      },
+      [theme.breakpoints.down("sm")]: {
+        width:"40%"
+      },
+      [theme.breakpoints.down("xs")]: {
+        width:"30%"
+      },
+    },
+
+    cardArea: {
+      fontFamily: "Montserrat",
+      fontWeight: "bold",
+      fontSize: "22px",
+      [theme.breakpoints.down("md")]: {
+        fontSize: "18px",
+      },
+      [theme.breakpoints.down("sm")]: {
+        fontSize: "14px",
+      },
+      [theme.breakpoints.down("xs")]: {
+        fontSize: "10px",
+      },
     },
   }));
   const classes = useStyles();
@@ -72,6 +108,7 @@ const CoinsCard = () => {
 
   useEffect(() => {
     fetchCoins();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currency]);
   const darkTheme = createTheme({
     palette: {
@@ -91,25 +128,25 @@ const CoinsCard = () => {
   };
   return (
     <ThemeProvider theme={darkTheme}>
-      <Container >
+      <Container>
         <Typography
           variant="h4"
           style={{
-            margin: 10,
             fontFamily: "Montserrat",
-            textAlign: "center" ,
+            textAlign: "center",
           }}
         >
           {/* Cryptocurrency Prices by Market Cap */}
         </Typography>
-        <br/>
+        <br />
         <TextField
           label="Search For a Crypto Currency "
           variant="outlined"
           style={{ marginBottom: 20, width: "100%" }}
+
           onChange={(e) => setSearch(e.target.value)}
         />
-        
+        <Typography className={classes.cardContainer}>
           {handleSearch()
             .slice((page - 1) * 12, (page - 1) * 12 + 12)
             .map((card) => {
@@ -117,67 +154,69 @@ const CoinsCard = () => {
 
               return (
                 <Link to={`/coins/${card.id}`}>
-                <Card className={classes.cardstyle}>
-                <CardActionArea className={classes.cardArea} >
-                  <div style={{
-                    width:"200px",
-                    height:"200px",
-                    marginLeft:"0 auto",
+                  <Card className={classes.cardstyle}>
+                    <CardActionArea className={classes.cardArea}>
+                      <div>
+                        <CardMedia
+                          image={card?.image}
+                          component="img"
+                          // alt={card.name}
+                          // height="50%"
+                          title={card.name}
+                          className={classes.img}
+                        />
+                      </div>
+                      <CardContent>
+                        <Typography gutterBottom variant="h5" component="h2">
+                          <span
+                            style={{
+                              textTransform: "uppercase",
+                              fontSize: "20px",
+                            }}
+                          >
+                            {card.symbol}
+                          </span>{" "}
+                          {card.name}
+                        </Typography>
+                        <Typography gutterBottom variant="h5" component="h2">
+                          Price :{symbol}
+                          {numberWithCommas(card.current_price.toFixed(2))}
+                        </Typography>
+                        <Typography
+                          gutterBottom
+                          variant="h5"
+                          component="h2"
+                          style={{
+                            color: profit > 0 ? "rgb(14,203,129)" : "red",
+                          }}
+                        >
+                          24h Change : {profit && "+"}
+                          {card.price_change_percentage_24h.toFixed(2)}%
+                        </Typography>
+                        <Typography gutterBottom variant="h5" component="h2">
+                          Market Cap : {symbol}{" "}
+                          {numberWithCommas(
+                            card.market_cap.toString().slice(0, -6)
+                          )}
+                          M
+                        </Typography>
+                      </CardContent>
 
-                  }}>
-                  <CardMedia
-                    image={card?.image}
-                    component="img"
-                    // alt={card.name}
-                    // height="50%"
-                    title={card.name}
-                    style={{ marginBottom: 10 }}
-                  />
-                  </div>
-                  <CardContent>
-                    <Typography gutterBottom variant="h5" component="h2">
-                      <span
-                        style={{
-                          textTransform: "uppercase",
-                          fontSize: "20px",
-                        }}
-                      >
-                        {card.symbol}
-                      </span>{" "}
-                      {card.name}
-                    </Typography>
-                    <Typography gutterBottom variant="h5" component="h2">
-                      Price :{symbol}
-                      {numberWithCommas(card.current_price.toFixed(2))}
-                    </Typography>
-                    <Typography gutterBottom variant="h5" component="h2" style={{color: profit > 0 ? "rgb(14,203,129)" : "red",}}>
-                      24h Change : {profit && "+"}
-                      {card.price_change_percentage_24h.toFixed(2)}%
-                    </Typography>
-                    <Typography gutterBottom variant="h5" component="h2">
-                      Market Cap : {symbol}{" "}
-                      {numberWithCommas(
-                        card.market_cap.toString().slice(0, -6)
-                      )}
-                      M
-                    </Typography>
-                  </CardContent>
-
-                 <Button size="small" color="primary">
-                    Track Tread
-                  </Button>
-                </CardActionArea>
-        </Card>
-        </Link>
+                      <Button size="small" color="primary">
+                        Track Tread
+                      </Button>
+                    </CardActionArea>
+                  </Card>
+                </Link>
               );
             })}
+        </Typography>
         <Pagination
           style={{
             padding: 20,
             width: "100%",
             display: "flex",
             justifyContent: "center",
-           
           }}
           className={{ ul: classes.pagination }}
           count={(handleSearch()?.length / 10).toFixed(0)}

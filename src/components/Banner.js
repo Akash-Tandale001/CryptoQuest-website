@@ -41,7 +41,7 @@ const Banner = () => {
                         marginBottom:15,
                         fontFamily:"Montserrat"
                     }} >
-                        Crypto Quest
+                        Crypto Scan
                     </Typography>
                     <Typography
                     variant='subtitle2'

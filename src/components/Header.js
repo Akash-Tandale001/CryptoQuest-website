@@ -41,7 +41,7 @@ const Header = () => {
                     onClick={()=>history("/", { replace: true })}
                      className={classes.title}
                      variant='h6'>
-                       CryptoQuest
+                       CryptoScan
                    </Typography>
                    <Select variant='outlined' style={{
                        width:100,
